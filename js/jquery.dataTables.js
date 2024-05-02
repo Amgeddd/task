@@ -2091,20 +2091,18 @@
 			// Store a reference to the input element, so other input elements could be
 			// added to the filter wrapper if needed (submit button for example)
 			nFilter._DT_Input = jqFilter[0];
-		
-			jqFilter.val( oPreviousSearch.sSearch.replace('"','&quot;') );
-			jqFilter.bind( 'keyup.DT', function(e) {
-				/* Update all other filter input elements for the new display */
-				var n = oSettings.aanFeatures.f;
-				var val = this.value==="" ? "" : this.value; // mental IE8 fix :-(
-		
-				for ( var i=0, iLen=n.length ; i<iLen ; i++ )
-				{
-					if ( n[i] != $(this).parents('div.dataTables_filter')[0] )
-					{
-						$(n[i]._DT_Input).val( val );
-					}
-				}
+			jqFilter.val(oPreviousSearch.sSearch.replace(/"/g, '&quot;')); // Replace all occurrences of double quotes
+			jqFilter.bind('keyup.DT', function(e) {
+    			/* Update all other filter input elements for the new display */
+   			  var n = oSettings.aanFeatures.f;
+    			  var val = this.value === "" ? "" : this.value; // mental IE8 fix :-(
+    			  for (var i = 0, iLen = n.length; i < iLen; i++) {
+          		      if (n[i] != $(this).parents('div.dataTables_filter')[0]) {
+                                  $(n[i]._DT_Input).val(val);
+        		      }
+   			 }
+});
+
 				
 				/* Now do the filter */
 				if ( val != oPreviousSearch.sSearch )
