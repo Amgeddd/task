@@ -47,7 +47,7 @@
 									$borrow_details_id=$row['borrow_details_id'];
 				
 									?>
-									<tr class="del<?php echo $id ?>">
+									<tr class="del<?php htmlspecialchars($id); ?>">
 									
 									                              
                                     <td><?php echo $row['book_title']; ?></td>
