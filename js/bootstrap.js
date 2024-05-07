@@ -1966,10 +1966,10 @@
       var that = this
 
       items = $(items).map(function (i, item) {
-        i = $(that.options.item).attr('data-value', item)
-        i.find('a').html(that.highlighter(item))
-        return i[0]
-      })
+    i = $(that.options.item).attr('data-value', item);
+    i.find('a').text(that.highlighter(item)); // Use .text() instead of .html()
+    return i[0];
+})
 
       items.first().addClass('active')
       this.$menu.html(items)
