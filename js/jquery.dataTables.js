@@ -2411,9 +2411,19 @@
 			}
 			else
 			{
-				sSearch = bRegex ? sSearch : _fnEscapeRegex( sSearch );
-				return new RegExp( sSearch, bCaseInsensitive ? "i" : "" );
-			}
+    			// Sanitize and validate dynamic data before constructing the regular expression
+    				sSearch = bRegex ? sSearch : _fnEscapeRegex(sSearch);
+    
+    			// Escape any special characters in sSearch if it's not intended to be a regular expression
+    				sSearch = escapeRegExp(sSearch);
+
+    			// Construct the regular expression using the sanitized data
+    				return new RegExp(sSearch, bCaseInsensitive ? "i" : "");
+}
+// Function to escape special characters in a string to make it safe for RegExp
+		function escapeRegExp(string) {
+    			return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 		}
 		
 		
