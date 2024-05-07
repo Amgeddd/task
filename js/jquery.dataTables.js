@@ -2080,7 +2080,8 @@
 			
 			var nFilter = document.createElement( 'div' );
 			nFilter.className = oSettings.oClasses.sFilter;
-			nFilter.innerHTML = '<label>'+sSearchStr+'</label>';
+			// Use textContent instead of innerHTML if sSearchStr is plain text
+			nFilter.textContent = '<label>' + sSearchStr + '</label>';
 			if ( !oSettings.aanFeatures.f )
 			{
 				nFilter.id = oSettings.sTableId+'_filter';
