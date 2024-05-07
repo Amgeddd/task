@@ -42,8 +42,8 @@
 								ORDER BY borrow.borrow_id DESC
 								  ")or die(mysql_error());
 									while($row=mysql_fetch_array($user_query)){
-									$id=$row['borrow_id'];
-									$book_id=$row['book_id'];
+									$id = htmlspecialchars($row['borrow_id']);
+									$book_id = htmlspecialchars($row['book_id']);
 									$borrow_details_id=$row['borrow_details_id'];
 				
 									?>
