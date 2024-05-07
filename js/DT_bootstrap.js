@@ -84,7 +84,7 @@ $.extend( $.fn.dataTableExt.oPagination, {
 					sClass = (j==oPaging.iPage+1) ? 'class="active"' : '';
 					$('<li '+sClass+'><a href="#">'+j+'</a></li>')
 						.insertBefore( $('li:last', an[i])[0] )
-						.bind('click', function (e) {
+						.on('click', function (e) {   //replace .bind to .on  This change ensures that your code remains compatible with newer versions of jQuery and follows best practices for security.
 							e.preventDefault();
 							oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
 							fnDraw( oSettings );
