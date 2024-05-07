@@ -40,7 +40,7 @@ if(isset($_POST['submit'])) {
                 <?php include('head.php'); ?>
                     
                 <div class="span12">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">  
+                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST"> 
                         <div class="span5">
                             <div class="form-horizontal">
                                 <div class="control-group">
