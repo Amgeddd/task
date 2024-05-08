@@ -58,8 +58,13 @@
 									/* $t4otal =  $book_copies  - $borrow_details;
 									
 									echo $total; */
-											$cat_query = mysql_query("select * from category where category_id = '$cat_id'")or die(mysql_error());
-											$cat_row = mysql_fetch_array($cat_query);
+										//prepare() is used to set up the SQL query and binds a parameter 
+										//($cat_id) instead of directly inserting it into the query. This helps prevent SQL injection.
+										$cat_query = $conn->prepare("SELECT * FROM category WHERE category_id = ?");
+										$cat_query->bind_param("s", $cat_id); // 's' specifies the variable type => 'string'
+										$cat_query->execute();
+										$cat_result = $cat_query->get_result();
+										$cat_row = $cat_result->fetch_assoc();
 									?>
 									<tr class="del<?php echo $id ?>">
                                     <td><?php echo $row['book_id']; ?></td>
