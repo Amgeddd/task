@@ -40,14 +40,32 @@
                                 </thead>
                                 <tbody>
 								 
-                                  <?php  $user_query=mysql_query("select * from book where status = 'old'")or die(mysql_error());
-									while($row=mysql_fetch_array($user_query)){
-									$id=$row['book_id'];  
-									$cat_id=$row['category_id'];
+                                  <?php
+// Assuming $conn is your database connection variable
+$user_query = $conn->prepare("SELECT * FROM book WHERE status = ?");
+$status = 'old'; // Example status, dynamically set this as required
+$user_query->bind_param("s", $status);
+$user_query->execute();
+$result = $user_query->get_result();
 
-											$cat_query = mysql_query("select * from category where category_id = '$cat_id'")or die(mysql_error());
-											$cat_row = mysql_fetch_array($cat_query);
-									?>
+while ($row = $result->fetch_assoc()) {
+    $id = $row['book_id'];
+    $cat_id = $row['category_id'];
+
+    // Prepare the second query using prepared statements as well
+    $cat_query = $conn->prepare("SELECT * FROM category WHERE category_id = ?");
+    $cat_query->bind_param("s", $cat_id);
+    //Prepared Statements: By using prepare(), bind_param(), and execute(), your SQL statements are sent to the database separately from the data, 
+    //thus preventing SQL injection by design.
+    $cat_query->execute();
+    $cat_result = $cat_query->get_result();
+    $cat_row = $cat_result->fetch_assoc();
+
+    // Process your data here
+}
+
+?>
+
 									<tr class="del<?php echo $id ?>">
 									
 									                              
