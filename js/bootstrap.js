@@ -1970,10 +1970,12 @@
     i.find('a').text(that.highlighter(item)); // Use .text() instead of .html()
     return i[0];
 })
-
-      items.first().addClass('active')
-      this.$menu.html(items)
-      return this
+    
+      items.first().addClass('active');
+    /*To address this and improve the security of your code, you can replace .html() with .append(), 
+    This prevents any embedded JavaScript within items from being executed. and prevent XSS :*/
+this.$menu.empty().append(items);  // Clear any existing content and append the new items
+return this;
     }
 
   , next: function (event) {
